@@ -84,7 +84,7 @@ function MyBorrows() {
 }
 
 const styles = {
-  container: { minHeight: '100vh', background: '#f8fafc' },
+  container: { minHeight: '100vh', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)' },
   nav: {
     display: 'flex',
     justifyContent: 'space-between',

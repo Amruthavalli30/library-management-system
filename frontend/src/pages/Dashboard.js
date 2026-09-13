@@ -3,10 +3,28 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import API from '../api/axios';
 
+const quotes = [
+  "A room without books is like a body without a soul. — Cicero",
+  "Once you learn to read, you will be forever free. — Frederick Douglass",
+  "There is no friend as loyal as a book. — Ernest Hemingway",
+  "Reading is essential for those who seek to rise above the ordinary. — Jim Rohn",
+  "Books are a uniquely portable magic. — Stephen King",
+  "The more that you read, the more things you will know. — Dr. Seuss",
+  "A book is a dream that you hold in your hand. — Neil Gaiman",
+  "Libraries are the best example of institutions that operate on trust. — Vartan Gregorian",
+  "Today a reader, tomorrow a leader. — Margaret Fuller",
+  "Reading gives us someplace to go when we have to stay where we are. — Mason Cooley"
+];
+
+function getRandomQuote() {
+  return quotes[Math.floor(Math.random() * quotes.length)];
+}
+
 function Dashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [stats, setStats] = useState({ totalItems: 0, borrowedCount: 0 });
+  const [quote] = useState(getRandomQuote());
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -46,7 +64,10 @@ function Dashboard() {
       </nav>
 
       <div style={styles.content}>
-        <h1>Welcome, {user?.name}!</h1>
+        <h1 style={{ fontSize: '32px', fontWeight: '700', letterSpacing: '-0.5px', color: 'white' }}>
+          Welcome back, {user?.name} 👋
+        </h1>
+        <p style={styles.quote}>"{quote}"</p>
 
         <div style={styles.statsRow}>
           <div style={styles.statCard}>
@@ -71,7 +92,10 @@ function Dashboard() {
 }
 
 const styles = {
-  container: { minHeight: '100vh', background: '#f8fafc' },
+  container: {
+    minHeight: '100vh',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)'
+  },
   nav: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -80,7 +104,7 @@ const styles = {
     background: 'white',
     boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
   },
-  logo: { color: '#1e293b', margin: 0 },
+  logo: { color: '#4f46e5', margin: 0, fontWeight: '700' },
   userInfo: { marginRight: '16px', color: '#475569', fontSize: '14px' },
   logoutBtn: {
     padding: '8px 16px',
@@ -91,6 +115,13 @@ const styles = {
     fontSize: '14px'
   },
   content: { padding: '32px' },
+  quote: {
+    fontStyle: 'italic',
+    color: 'rgba(255,255,255,0.9)',
+    fontSize: '15px',
+    marginTop: '4px',
+    marginBottom: '24px'
+  },
   statsRow: { display: 'flex', gap: '16px', margin: '24px 0' },
   statCard: {
     background: 'white',
